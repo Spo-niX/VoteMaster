@@ -4,7 +4,7 @@ namespace VoteMaster.Data;
 
 public class MainVoting
 {
-    public string Title;
-    public List<MainVotingVariant> Variants;
-    public DateTime AvieableTo;
+    public string Title{ get; set; }
+    public List<MainVotingVariant> Variants{ get; set; }
+    public DateTime AvieableTo{ get; set; }
 }

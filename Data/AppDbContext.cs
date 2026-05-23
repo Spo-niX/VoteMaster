@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using VoteMaster.Models;
 
 namespace VoteMaster.Data;
 
@@ -8,5 +9,7 @@ public class AppDbContext : DbContext
     {
     }
     
+    public DbSet<User> Users;
+    public DbSet<RefreshToken> RefreshTokens;
     public DbSet<MainVoting> Votings;
 }

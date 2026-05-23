@@ -4,6 +4,6 @@ namespace VoteMaster.Data;
 
 public class MainVotingVariant
 {
-    public string Title;
-    public float VoitersNumber;
+    public string Title{ get; set; }
+    public float VoitersNumber{ get; set; }
 }
