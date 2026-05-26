@@ -6,4 +6,5 @@ public class MainVotingVariant
 {
     public string Title{ get; set; }
     public float VoitersNumber{ get; set; }
+    public List<int> VoitersId {get; set; }
 }
