@@ -8,5 +8,6 @@ public class MainVoting
     public string Title{ get; set; }
     public List<MainVotingVariant> Variants{ get; set; }
     public DateTime AvieableTo{ get; set; }
+    public List<int> VoitersId {get; set; }
     public string CreaterName {get; set; }
 }

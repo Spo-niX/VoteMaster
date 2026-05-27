@@ -55,7 +55,6 @@ public class VoteController : ControllerBase
             {
                 Title = i,
                 VoitersNumber = 0,
-                VoitersId = new List<int>() 
             };
             endVarints.Add(endVariant);
         }
@@ -64,7 +63,8 @@ public class VoteController : ControllerBase
             Title = vt.Title,
             Variants = endVarints,
             AvieableTo = vt.AvieableTo,
-            CreaterName = User.Identity.Name
+            CreaterName = User.Identity.Name,
+            VoitersId = new List<int>() 
         };
 
         _db.Votings.Add(endVoting);
