@@ -33,7 +33,6 @@ public class UserVotingController : ControllerBase
         _config = config;
     }
 
-    [Authorize]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetVoting(int id)
     {

@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 using System.Net.Security;
 using VoteMaster.Data;
 using VoteMaster.Models;
+using OfficeOpenXml;
 
 namespace VoteMaster.Controllers;
 
@@ -92,5 +93,55 @@ public class VoteController : ControllerBase
         _logger.LogInformation("Voting {id} was removed by user {name}", VotingToRemove.Id, User.Identity.Name);
 
         return Ok();
+    }
+    
+    [Authorize]
+    [HttpPut("{id}")]
+    public async Task<IActionResult> ChangeDate(int id, [FromBody] DateTime dt)
+    {
+        if (_db.Votings.Where(x => x.Id == id)
+        .Where(x => x.CreaterName == User.Identity.Name) == null)
+        {
+            return Unauthorized("You'r not creater of this voting");
+        }
+
+        var voting = _db.Votings.Single(x => x.Id == id);
+
+        voting.AvieableTo = dt;
+
+        _db.SaveChanges();
+
+        return Ok();
+    }
+
+    [Authorize]
+    [HttpGet("downolad/{id}")]
+    public async Task<IActionResult> DownoladVoting(int id)
+    {
+        var voting = _db.Votings.Single(x => x.Id == id);
+
+        if(voting == null)
+        {
+            return BadRequest("No voting with that ID");
+        }
+
+        using var package = new ExcelPackage();
+        var sheet = package.Workbook.Worksheets.Add("sheet1");
+
+        sheet.Cells[1,1].Value = voting.Title;
+        sheet.Cells[1,2].Value = "Voiters number";
+        for(int i = 0; i < voting.Variants.Count; i++)
+        {
+            sheet.Cells[2+i, 1].Value = voting.Variants[i].Title;
+            sheet.Cells[2+i, 2].Value = voting.Variants[i].VoitersNumber;
+        }
+        sheet.Cells[4+voting.Variants.Count, 1].Value = voting.AvieableTo;
+        sheet.Cells[5+voting.Variants.Count, 1].Value = voting.CreaterName;
+        sheet.Cells.AutoFitColumns();
+
+        var stream = new MemoryStream(package.GetAsByteArray());
+        stream.Position = 0;
+
+        return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Voting.xlsx");
     }
 }
