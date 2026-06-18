@@ -65,7 +65,8 @@ public class VoteController : ControllerBase
             Variants = endVarints,
             AvieableTo = vt.AvieableTo,
             CreaterName = User.Identity.Name,
-            VoitersId = new List<int>() 
+            VoitersId = new List<int>(),
+            isAnonAllowed = vt.isAnonAllowed
         };
 
         _db.Votings.Add(endVoting);

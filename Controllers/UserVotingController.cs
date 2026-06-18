@@ -66,7 +66,7 @@ public class UserVotingController : ControllerBase
         Voting.VoitersId.Add(voiter.Id);
         await _db.SaveChangesAsync();
 
-        return Ok("Cool 👍");
+        return Ok();
     }
 
     [Authorize]
@@ -85,6 +85,6 @@ public class UserVotingController : ControllerBase
         Voting.VoitersId.Remove(voiter.Id);
         await _db.SaveChangesAsync();
 
-        return Ok("Cool 👍");
+        return Ok();
     }
 }

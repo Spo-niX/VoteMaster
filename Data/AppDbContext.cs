@@ -12,4 +12,5 @@ public class AppDbContext : DbContext
     public DbSet<User> Users;
     public DbSet<RefreshToken> RefreshTokens;
     public DbSet<MainVoting> Votings;
+    public DbSet<VotedIp> votedIps;
 }

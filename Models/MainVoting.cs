@@ -10,4 +10,5 @@ public class MainVoting
     public DateTime AvieableTo{ get; set; }
     public List<int> VoitersId {get; set; }
     public string CreaterName {get; set; }
+    public bool isAnonAllowed {get; set; }
 }
